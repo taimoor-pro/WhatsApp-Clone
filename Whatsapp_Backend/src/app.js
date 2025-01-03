@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 import compression from "compression";
 import fileUpload from "express-fileupload";
 import cors from 'cors'
+import createHttpError from "http-errors";
+import routes from "./routes/index.js"
 
 // DotEnv Config
 dotenv.config()
@@ -62,8 +64,36 @@ app.use(fileUpload({
 // app.use(cors({
 //     origin: process.env.FronEndOriginUrl, // only this front-end connect others block no access 
 // }))
-
 app.use(cors());
+
+// All API Routes
+// api v1 routes
+// ** changes and features add so something new v2 make life easier
+app.use("/api/v1", routes)
+
+
+// **** Custom logger, handle Server and http errors
+// Packages we will use --> winston and Http-errors
+app.post("/api/test", (req, res) => {
+    throw createHttpError.BadRequest("This route has an error")
+})
+
+app.use(async (req, res, next) => {
+    next(createHttpError.NotFound("This route does not exsit."))
+})
+
+// Set Error Modes from http-errors
+// Error Handling
+app.use(async (err, req, res, next) => {
+    res.status(err.status || 500);
+    res.send({
+        error: {
+            status: err.status || 500,
+            message: err.message,
+            author: "codewithtaimoor"
+        }
+    })
+})
 
 // **** Middlewares End
 app.get('/api', (req, res) => {
@@ -71,6 +101,7 @@ app.get('/api', (req, res) => {
 })
 
 app.post('/api', (req, res) => {
+    // res.status(409).json({ message: "there is a conflict" });
     res.send(req.body)
 })
 

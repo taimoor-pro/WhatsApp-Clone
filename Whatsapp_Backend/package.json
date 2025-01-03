@@ -9,6 +9,7 @@
     "dev": "cross-env NODE_ENV=development nodemon ./src/index.js"
   },
   "dependencies": {
+    "colors": "^1.4.0",
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -19,6 +20,7 @@
     "express-mongo-sanitize": "^2.2.0",
     "helmet": "^8.0.0",
     "http-errors": "^2.0.0",
+    "mongoose": "^8.9.3",
     "morgan": "^1.10.0",
     "trim-request": "^1.0.6",
     "winston": "^3.17.0"

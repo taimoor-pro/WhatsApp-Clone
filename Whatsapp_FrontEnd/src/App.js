@@ -1,11 +1,19 @@
 import React from 'react'
-import { ChatIcon } from './svg'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Home from './pages/home'
+import Login from './pages/login'
+import Register from './pages/register'
 
 const App = () => {
   return (
-    <div>
-      Here is a frontend app
-      <ChatIcon className="red" />
+    <div className='dark'>
+      <Router>
+        <Routes>
+          <Route exect path="/" element={<Home />} />
+          <Route exect path="/login" element={<Login />} />
+          <Route exect path="/register" element={<Register />} />
+        </Routes>
+      </Router>
     </div>
   )
 }
